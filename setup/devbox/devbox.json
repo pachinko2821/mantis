@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.7/.schema/devbox.schema.json",
+  "packages": [
+    "python@3.9",
+    "stdenv.cc.cc.lib",
+    "dnsutils@latest",
+    "git@latest",
+    "dnstwist@latest",
+    "unzip@latest",
+    "gcc@latest",
+    "amass@3.22.2",
+    "libpcap@latest",
+    "subfinder@2.6.6",
+    "httpx@1.6.8",
+    "ipinfo@3.3.1",
+    "naabu@2.1.9",
+    "nuclei@3.3.4",
+    "gitleaks@8.18.1",
+    "gau@2.2.1",
+    "mongosh@2.3.7",
+    "docker@27.5.0"
+  ],
+  "shell": {
+    "init_hook": [
+      ". $VENV_DIR/bin/activate",
+      "PS1='🦗 Mantis > '",
+      "alias mantis='python launch.py'",
+      "alias help='python launch.py --help'"
+    ],
+    "scripts": {
+      "setup": [
+        ". $VENV_DIR/bin/activate",
+        ". setup.sh"
+      ]
+    }
+  }
+}
