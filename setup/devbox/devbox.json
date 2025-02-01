@@ -30,7 +30,7 @@
     "scripts": {
       "setup": [
         ". $VENV_DIR/bin/activate",
-        ". setup.sh"
+        ". $(pwd)/init.sh"
       ]
     }
   }
