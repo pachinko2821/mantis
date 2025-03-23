@@ -23,6 +23,13 @@ RUN unzip subfinder_2.6.6_linux_amd64.zip
 RUN mv subfinder /usr/bin
 RUN rm -rf *
 
+# Install chaos-client
+RUN echo "Installing chaos-client"
+RUN wget https://github.com/projectdiscovery/chaos-client/releases/download/v0.5.2/chaos-client_0.5.2_linux_amd64.zip
+RUN unzip chaos-client_0.5.2_linux_amd64.zip
+RUN mv chaos-client /usr/bin
+RUN rm -rf *
+
 # Install Go_Virustotal
 RUN echo "Installing Go_Virustotal"
 RUN wget https://github.com/Abhinandan-Khurana/go_virustotal/releases/download/v1.0.1/go_virustotal-linux-v1.0.1
