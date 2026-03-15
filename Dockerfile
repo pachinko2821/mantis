@@ -35,11 +35,12 @@ ARG TARGETARCH
 # Map Docker arch names to tool-specific naming conventions
 # Saving it in the different formats to use for different tools as needed
 RUN echo "TARGETARCH=$TARGETARCH" && \
-    if [ "$TARGETARCH" = "amd64" ]; then \
-        echo "amd64" > /tmp/arch && echo "x64" > /tmp/arch_alt && echo "x86_64" > /tmp/arch_uname; \
-    elif [ "$TARGETARCH" = "arm64" ]; then \
-        echo "arm64" > /tmp/arch && echo "arm64" > /tmp/arch_alt && echo "aarch64" > /tmp/arch_uname; \
-    fi
+    case "$TARGETARCH" in \
+        amd64|x86_64) \
+            echo "amd64" > /tmp/arch && echo "x64" > /tmp/arch_alt && echo "x86_64" > /tmp/arch_uname ;; \
+        arm64|aarch64) \
+            echo "arm64" > /tmp/arch && echo "aarch64" > /tmp/arch_alt ;; \
+    esac
 
 # Install amass
 RUN echo "Installing amass" && \
@@ -78,10 +79,9 @@ RUN ARCH=$(cat /tmp/arch) && \
     wget -O nuclei.zip https://github.com/projectdiscovery/nuclei/releases/download/v3.3.4/nuclei_3.3.4_linux_${ARCH}.zip && \
     unzip nuclei.zip && mv nuclei /usr/bin && rm -rf *
 
-RUN ARCH=$(cat /tmp/arch_alt) && \
+RUN ARCH=$(cat /tmp/arch) && \
     wget -O gitleaks.tar.gz https://github.com/gitleaks/gitleaks/releases/download/v8.18.1/gitleaks_8.18.1_linux_${ARCH}.tar.gz && \
     tar -xvf gitleaks.tar.gz && mv gitleaks /usr/bin && rm -rf *
-
 
 # Install wafw00f
 RUN pip install wafw00f
